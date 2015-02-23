@@ -23,6 +23,9 @@ if __name__ == "__main__":
   u_limit = 100 # upper limit on pairs of triples to check
   F = gen_fib(2 * u_limit) # the highest fibonacci number we'll need
   
+
+  # http://en.wikipedia.org/wiki/Formulas_for_generating_Pythagorean_triples
+  # Generalized Fibonacci sequence I
   triples = {}
   triples[3] = [ 4, 3, 5 ]
   for i in range(4, 10 + 1):
