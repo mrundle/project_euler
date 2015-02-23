@@ -3,6 +3,8 @@
 #
 # Summation of primes
 
+# Sieve of Eratosthenese: http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+# Help: http://stackoverflow.com/questions/3939660/sieve-of-eratosthenes-finding-primes-python
 def primes_sieve(limit):
   primes = []
   a = [True] * limit
