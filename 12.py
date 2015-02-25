@@ -3,19 +3,24 @@
 #
 # Highly divisible triangular number
 
+from math import sqrt
 
-def primes_sieve(limit):
-    primes = []
-    a = [True] * limit
-    a[0] = a[1] = False
-    for i, isprime in enumerate(a):
-        if isprime == True:
-            primes.append(i)
-            for n in xrange(i*i, limit, i):
-                a[n] = False
-    return primes
-
+def divisors(triangle_num):
+  divisors = 0
+  sqrt_num = int(sqrt(triangle_num))
+  i = 0
+  while i < sqrt_num:
+    i += 1
+    if triangle_num % i == 0: divisors += 2
+  if sqrt_num * sqrt_num == triangle_num: divisors -= 1
+  return divisors
 
 if __name__ == "__main__":
-    primes = primes_sieve(28)
-    print primes
+  triangle_num = 0
+  i = 1
+  while divisors(triangle_num) < 500:
+    triangle_num += i
+    i += 1
+    print triangle_num, divisors(triangle_num)
+
+  print triangle_num
