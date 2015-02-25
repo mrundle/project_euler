@@ -1,3 +1,6 @@
+# Project Euler
+# Problem 23
+
 from math import sqrt
 import time
 
@@ -20,16 +23,21 @@ def ret_abundant(limit):
   return abundant
 
 if __name__ == "__main__":
+  start = time.time()
   limit = 28123
   ab_sums = [False] * (limit + 1)
-  #print ret_abundant(55)
-  #exit()
-  abundant = ret_abundant(limit+ 10)
+
+  abundant = ret_abundant(limit + 1)
+
   for i in abundant:
     for j in abundant:
       if i + j > limit: break
       else: ab_sums[i + j] = True
+
   sum = 0
   for i, ab_sum in enumerate(ab_sums):
     if not ab_sum: sum += i
-  print sum
+
+  elapsed = time.time() - start
+
+  print sum, "(" + str(elapsed) + "s)"
