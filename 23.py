@@ -5,12 +5,11 @@ import time
 def sum_divisors(n):
   sum_div = 1 # start with 1, because it is a divisor
   div = []
-  sqrt_n = int(sqrt(n)) + 1
-  for i in range(2,sqrt_n):
+  sqrt_n = int(sqrt(n))
+  for i in range(2,sqrt_n + 1):
     if n % i == 0:
       sum_div += i
-      sum_div += n/i
-      print i, n/i
+      if (n/i) != i: sum_div += n/i
   return sum_div
 
 def ret_abundant(limit):
@@ -21,18 +20,16 @@ def ret_abundant(limit):
   return abundant
 
 if __name__ == "__main__":
-
-  print sum_divisors(12)
+  limit = 28123
+  ab_sums = [False] * (limit + 1)
   #print ret_abundant(55)
-  exit()
-
-  ab_sums = [False] * (28123 + 1)
-  abundant = ret_abundant(28123)
+  #exit()
+  abundant = ret_abundant(limit+ 10)
   for i in abundant:
     for j in abundant:
-      if i + j > 28123: break
+      if i + j > limit: break
       else: ab_sums[i + j] = True
   sum = 0
-  for i in range(28123 + 1):
-    if ab_sums[i] == False: sum += i
+  for i, ab_sum in enumerate(ab_sums):
+    if not ab_sum: sum += i
   print sum
