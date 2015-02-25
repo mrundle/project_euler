@@ -34,9 +34,13 @@ if __name__ == "__main__":
       tmp_prod = m[j][i] * m[j+1][i] * m[j+2][i] * m[j+3][i]
       if tmp_prod > largest: largest = tmp_prod
   
-    for i in range(16):
-      for j in range(16):
-        # diagonals
-        a = 2
+  # up/right and down/right diagonals
+  for i in range(16):
+    for j in range(16):
+      # diagonals
+      tmp_prod = m[i][j] * m[i+1][j+1] * m[i+2][j+2] * m[i+3][j+3]
+      if tmp_prod > largest: largest = tmp_prod
+      tmp_prod = m[i+3][j] * m[i+2][j+1] * m[i+1][j+2] * m[i][j+3]
+      if tmp_prod > largest: largest = tmp_prod
         
   print largest
