@@ -5,14 +5,15 @@
 from math import sqrt
 import time
 
+# Sums proper divisors
 def sum_divisors(n):
   sum_div = 1 # start with 1, because it is a divisor
   div = []
-  sqrt_n = int(sqrt(n)) + 1
-  for i in range(2,sqrt_n):
+  sqrt_n = int(sqrt(n))
+  for i in range(2,sqrt_n + 1):
     if n % i == 0:
       sum_div += i
-      sum_div += n/i
+      if (n/i) != i: sum_div += n/i
   return sum_div
 
 if __name__ == "__main__":
@@ -27,6 +28,7 @@ if __name__ == "__main__":
 
   for n in range(1,10000):
     if sum_div[n] < len(sum_div):
+      print n
       if sum_div[sum_div[n]] == n and n != sum_div[n]:
         if n not in amicable: amicable.append(n)
         if sum_div[n] not in amicable: amicable.append(sum_div[n])
