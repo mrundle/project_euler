@@ -21,6 +21,5 @@ if __name__ == "__main__":
   while divisors(triangle_num) < 500:
     triangle_num += i
     i += 1
-    print triangle_num, divisors(triangle_num)
 
   print triangle_num

@@ -1,1 +1,4 @@
-# use a dict?
+# Project Euler
+# Problem 14
+#
+#
