@@ -1,5 +1,10 @@
+# Project Euler
+# Problem 17
+#
+# Number letter counts
 
 spellings = {}
+spellings[0]    = ''
 spellings[1]    = 'one'
 spellings[2]    = 'two'
 spellings[3]    = 'three'
@@ -33,20 +38,38 @@ spellings[100]  = 'hundred'
 spellings[1000] = 'thousand'
 
 letters = 0
-for i in range(1,1000):
-  n = i
-  # see how many hundreds there are
-  hundreds = 0
-  while n > 100:
-    n -= 100
-    hundreds += 1
-  # count the hundreds
-  letters += spellings[hundreds]
-  letters += spellings[100]
 
-  # next, see how many tens there are above twenty
-    hundreds = i - (i % 100)
-    letters += hundreds
+for i in range(1,1000):
+
+  n = i
+
+  # count the hundreds
+  hundreds = 0
+  if n > 99:
+    while n > 99:
+      n -= 100
+      hundreds += 1
+    letters += len(spellings[hundreds])
+    letters += len(spellings[100])
+    if n != 0: letters += len('and')
+
+  # tens
+  tens = 0
+  if n < 20:
+    letters += len(spellings[n])
+    ns += spellings[n] + ' '
+    n = 0
+  else:
+    while n > 9:
+      n -= 10
+      tens += 1
+  letters += len(spellings[tens * 10])
+
+  # add the ones
+  letters += len(spellings[n])
+    
 # add one thousand
-letters += spellings[1]
-letters += spellings[1000]
+letters += len(spellings[1])
+letters += len(spellings[1000])
+
+print letters
