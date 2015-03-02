@@ -1,12 +1,18 @@
-# REF: http://blog.bjrn.se/2008/04/lexicographic-permutations-using.html
+# ProjectEuler.net
+# Problem 24
+# Lexicographical Permutations
 
-def it_through(seq, used):
-  if len(seq) == 0:
-    
+from math import factorial
+
+
 
 if __name__ == "__main__":
-
-  seq = [0,1,2]
-
-  get_perms(seq)
-  
+  nums = [0,1,2,3,4,5,6,7,8,9]
+  perms = 1
+  print len(nums)
+  for i in range(1,len(nums)+1):
+    perms *= i
+    if perms >= 1000000:
+      print i, perms
+      break
+  print perms
