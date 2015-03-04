@@ -1,0 +1,11 @@
+#!/bin/bash
+
+problem="p$1"
+
+# Compile the solution
+compile="javac $problem.java"
+$compile
+
+# Run the solution
+run="java $problem"
+$run
