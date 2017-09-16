@@ -9,8 +9,10 @@
 #include <unistd.h>
 
 /* Macros so that we can use the calling function name (__func__) */
-#define die() do {                                                    \
-    fprintf(stderr, "%s failed\n", __func__);                         \
+#define die(msg...) do {                                              \
+    fprintf(stderr, "%s failed: ", __func__);                         \
+    fprintf(stderr, msg);                                             \
+    fprintf(stderr, "\n");                                            \
     exit(EXIT_FAILURE);                                               \
 } while(0)
 
@@ -63,5 +65,20 @@ _get_time(struct timespec *ts)
             ts_final.tv_sec,                                         \
             ts_final.tv_nsec);                                       \
 } while (0)
+
+/* Use like MAIN(function, 12345) */
+#define MAIN(f, sol)              \
+    void run(void) {              \
+        size_t _sol = (sol); \
+        size_t res = f();         \
+        if (res != _sol) {        \
+            die("res=%lu != sol=%lu", res, _sol); \
+        }                         \
+    }                             \
+    int main(void)                \
+    {                             \
+        TIMED_RUN(run());         \
+        return 0;                 \
+    }
 
 #endif // __PROJECT_EULER_LIB_H_

@@ -8,5 +8,9 @@ all: $(TARGETS)
 %.bin: %.c
 	gcc $(CFLAGS) $< -o $@
 
+.PHONY: run
+run:
+	@for f in `find . -iname '*.bin'`; do echo -n $$f '-> '; $$f; done
+
 clean:
 	rm *.bin

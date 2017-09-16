@@ -1,0 +1,66 @@
+#!/bin/bash
+# Pulls a particular problem from projecteuler.net,
+# including the problem description, and creates a
+# a dummy .c file for implementation.
+#
+# Used like `pull 25`, it would create problem_25.c
+#
+# This takes the Project Euler formatted for granted,
+# so is fairly brittle. Be warned ;)
+if [[ $# -ne 1 ]]; then
+    echo "usage: ${0##*/} <problem_number>"
+    exit 1
+fi
+
+c_file=problem_$1.c
+url=https://projecteuler.net/problem=$1
+if [[ -f $c_file ]]; then
+    echo "$c_file already exists"
+    exit 1
+fi
+
+src=`mktemp`
+pbm=`mktemp`
+wget --quiet $url -O $src 2>/dev/null
+
+# read the file and sanitize output
+
+grep -oE '<p>.*</p>' $src \
+    | sed 's,<p>,,g; s,</p>,,g' \
+    | fold -w 60 -s \
+    > $pbm
+
+cat << EOF >> $c_file
+/*
+ * Project Euler - Problem $1
+ *
+ * Generated automatically via the '${0##*/}' script
+ * in this directory.
+ *
+EOF
+
+while read line; do
+    echo " * " $line >> $c_file
+done <<< `cat $pbm`
+
+echo " */" >> $c_file
+
+cat << EOF >> $c_file
+#include "project_euler_lib.h"
+
+// TODO find solution at $url
+
+#define SOLUTION 0
+
+size_t
+solution(void)
+{
+    // TODO
+    die("not implemented");
+    return 1;
+}
+
+MAIN(solution, SOLUTION);
+EOF
+
+rm $f $pbm

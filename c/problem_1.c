@@ -8,18 +8,14 @@
 #include "project_euler_lib.h"
 #define SOLUTION 233168
 
-static void
-method_1(void)
+static size_t
+solution(void)
 {
-    int result = 0;
-    for (int i = 3; i < 1000; i++) {
+    size_t result = 0;
+    for (size_t i = 3; i < 1000; i++) {
         if (i % 3 == 0 || i % 5 == 0) result += i;
     }
-
-    if (result != SOLUTION) die();
+    return result;
 }
 
-int main(void)
-{
-    TIMED_RUN(method_1());
-}
+MAIN(solution, SOLUTION);
