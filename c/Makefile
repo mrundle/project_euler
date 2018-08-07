@@ -1,4 +1,5 @@
 SRCS=$(wildcard *.c)
+SRCS+=$(wildcard scratchpad/*.c)
 # Use .bin so that they can be added easily to .gitignore
 TARGETS=$(SRCS:.c=.bin)
 CFLAGS = -Wall -Wextra
@@ -10,7 +11,12 @@ all: $(TARGETS)
 
 .PHONY: run
 run:
-	@for f in `find . -iname '*.bin'`; do echo -n $$f '-> '; $$f; done
+	@all_passed=true; \
+	for f in `find . -iname '*.bin'`; do \
+		printf "$$f -> "; \
+		$$f || all_passed=false; \
+	done; \
+	$$all_passed && echo PASS || echo FAIL
 
 clean:
-	rm *.bin
+	find . -iname '*.bin' -exec rm {} \;

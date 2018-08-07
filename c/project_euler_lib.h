@@ -2,6 +2,7 @@
 #define __PROJECT_EULER_LIB_H_
 
 #include <errno.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
